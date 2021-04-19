@@ -1,4 +1,4 @@
-echo "# teste" >> README.md
+echo "# restaurant" >> README.md
 git init
 git add README.md
 git commit -m "first commit"
