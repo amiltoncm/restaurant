@@ -78,6 +78,24 @@ router.get('/reservations', function(req, res, next){
 
 })
 
+router.post('/reservations', function(req, res, next){
+  
+  if (!req.body.name){
+      
+  } else if (!req.body.email) {
+    
+  } else if (!req.body.people) {
+    
+  } else if (!req.body.date) {
+    
+  } else if (!req.body.time){
+    
+  } else {
+    
+  }
+  
+})
+
 /**
  *  --- Services --------------------------------------------------------------- 
  */
