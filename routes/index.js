@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var menus = require('./../inc/menus');
+var reservations = require('./../inc/reservations');
 
 /**
  * Constants default. { Devem buscar as informações do banco de dados.}
@@ -69,27 +70,31 @@ router.get('/menus', function(req, res, next){
  *  --- Reservations ----------------------------------------------------------- 
  */
 router.get('/reservations', function(req, res, next){
+
+  req.title = titleProject;
+  req.subTitle = 'Sub-título';
+  req.imgBackground = imgPath + imgHeaderReservations;
   
-  res.render('reservations', {
-    title: titleProject,
-    subTitle: 'Sub-título',
-    imgBackground: imgPath + imgHeaderReservations,
-  })
+  reservations.render(req, res);
 
 })
 
 router.post('/reservations', function(req, res, next){
   
+  req.title = titleProject;
+  req.subTitle = 'Sub-título';
+  req.imgBackground = imgPath + imgHeaderReservations;  
+  
   if (!req.body.name){
-      
+    reservations.render(req, res, "Digite o nome!");
   } else if (!req.body.email) {
-    
+    reservations.render(req, res, "Digite o e-mail!");
   } else if (!req.body.people) {
-    
+    reservations.render(req, res, "Digite a quantidade de pessoas!");
   } else if (!req.body.date) {
-    
+    reservations.render(req, res, "Digite a data!");
   } else if (!req.body.time){
-    
+    reservations.render(req, res, "Digite o horário!");
   } else {
     
   }
