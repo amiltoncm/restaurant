@@ -1,23 +1,19 @@
-let connection = require('./db');
+let connection = require('./db')
 
 module.exports = {
-    
-  getMenus(){
-  
+  getMenus() {
     return new Promise((resolve, reject) => {
-    
-      connection.query(`SELECT id, title, description, price, photo, register 
-                        FROM menus ORDER BY title`, (err, results) => {
-        
-        if (err) {
-          reject(err);
+      connection.query(
+        `SELECT id, title, description, price, photo, register 
+                        FROM menus ORDER BY title`,
+        (err, results) => {
+          if (err) {
+            reject(err)
+          }
+
+          resolve(results)
         }
-        
-        resolve(results);
-      
-      });
-      
-    });      
-        
-  }  
-} 
+      )
+    })
+  }
+}
