@@ -10,7 +10,7 @@
           <form action="/contacts" method="post">
             <div class="row form-group">
               <div class="col-md-12">
-                <label class="sr-only" for="name">Nome</label>
+                <label class="sr-only" for="inputName">Nome</label>
                 <input
                   type="text"
                   id="inputName"
@@ -24,7 +24,7 @@
 
             <div class="row form-group">
               <div class="col-md-12">
-                <label class="sr-only" for="phone-number"
+                <label class="sr-only" for="inputPhoneNumber"
                   >Telefone / Whats app</label
                 >
                 <input
@@ -42,7 +42,7 @@
 
             <div class="row form-group">
               <div class="col-md-12">
-                <label class="sr-only" for="email">E-mail</label>
+                <label class="sr-only" for="inputEmail">E-mail</label>
                 <input
                   type="text"
                   id="inputEmail"
@@ -56,7 +56,7 @@
 
             <div class="row form-group">
               <div class="col-md-12">
-                <label class="sr-only" for="message">Mensagem</label>
+                <label class="sr-only" for="inputMessage">Mensagem</label>
                 <textarea
                   id="inputMessage"
                   name="message"
@@ -80,6 +80,7 @@
             </div>
           </form>
         </div>
+
         <div class="col-md-5 col-md-push-1 animate-box">
           <div class="gtco-contact-info">
             <h3>Informações de Contato</h3>
@@ -96,7 +97,7 @@
                 >
               </li>
               <li class="url">
-                <a href="https://www.amxsistemas.com.br">AMX Sistemas</a>
+                <a href="/"><%= companyName %></a>
               </li>
             </ul>
           </div>

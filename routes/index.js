@@ -18,10 +18,11 @@ const subTitleMenus = 'Nosso menu'
 const subTitleReservations = 'Faça sua reserva'
 const subTitleServices = 'Nossos serviços'
 
+const currencySymbol = 'R$'
+
 /**
  * Images background.
  */
-
 const imgPath = 'images/backgrounds/'
 const imgHeaderIndex = 'index.jpg'
 const imgHeaderContacts = 'contacts.jpg'
@@ -40,6 +41,7 @@ router.get('/', function (req, res, next) {
       developerPage: developerPage,
       companyName: companyName,
       imgBackground: imgPath + imgHeaderIndex,
+      currencySymbol,
       menus: results
     })
   })
@@ -103,6 +105,7 @@ router.get('/menus', function (req, res, next) {
       developerPage: developerPage,
       companyName: companyName,
       imgBackground: imgPath + imgHeaderMenus,
+      currencySymbol,
       menus: results
     })
   })

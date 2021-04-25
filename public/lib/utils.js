@@ -3,5 +3,5 @@
  */
 
 $(document).ready(function ($) {
-  $('#phone-number').mask('(99) 99999-9999')
+  $('#inputPhoneNumber').mask('(99) 99999-9999')
 })
