@@ -2,13 +2,13 @@ var connection = require('./db')
 
 module.exports = {
   render(req, res, error, success) {
-    res.render('reservations', {
+    res.render('contacts', {
       title: req.title,
       developer: req.developer,
       developerPage: req.developerPage,
       subTitle: req.subTitle,
-      companyName: req.companyName,
       imgBackground: req.imgBackground,
+      companyName: req.companyName,
       body: req.body,
       error,
       success
@@ -17,17 +17,10 @@ module.exports = {
 
   save(fields) {
     return new Promise((resolve, reject) => {
-      /**
-       * Date formatation.
-       */
-      const date = fields.date.split('/')
-
-      fields.date = `${date[2]}-${date[1]}-${date[0]}`
-
       connection.query(
-        `INSERT INTO reservations 
-         (name, email, people, date, time)
-         VALUES('${fields.name}', '${fields.email}', ${fields.people}, '${fields.date}', '${fields.time}')
+        `INSERT INTO contacts
+         (name, email, phone_number, message)
+         VALUES('${fields.name}', '${fields.email}', '${fields.phoneNumber}', '${fields.message}')
         `,
         (err, results) => {
           if (err) {

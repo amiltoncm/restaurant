@@ -1,12 +1,22 @@
 var express = require('express')
 var router = express.Router()
 var menus = require('./../inc/menus')
+var contacts = require('./../inc/contacts')
 var reservations = require('./../inc/reservations')
 
 /**
  * Constants default. { Devem buscar as informações do banco de dados.}
  */
-const titleProject = 'AMRestaurant'
+const companyName = 'AMRestaurant'
+
+const projectTitle = 'AMRest'
+const developer = 'AMX Sistemas'
+const developerPage = 'https://www.amxsistemas.com.br'
+
+const subTitleContacts = 'Entre em contato'
+const subTitleMenus = 'Nosso menu'
+const subTitleReservations = 'Faça sua reserva'
+const subTitleServices = 'Nossos serviços'
 
 /**
  * Images background.
@@ -25,7 +35,10 @@ const imgHeaderServices = 'services.jpg'
 router.get('/', function (req, res, next) {
   menus.getMenus().then(results => {
     res.render('index', {
-      title: titleProject,
+      title: projectTitle,
+      developer: developer,
+      developerPage: developerPage,
+      companyName: companyName,
       imgBackground: imgPath + imgHeaderIndex,
       menus: results
     })
@@ -36,11 +49,46 @@ router.get('/', function (req, res, next) {
  *  --- Contacts ---------------------------------------------------------------
  */
 router.get('/contacts', function (req, res, next) {
-  res.render('contacts', {
-    title: titleProject,
-    subTitle: 'Sub-título',
-    imgBackground: imgPath + imgHeaderContacts
-  })
+  req.title = projectTitle
+  req.subTitle = subTitleContacts
+  req.developer = developer
+  req.developerPage = developerPage
+  req.companyName = companyName
+  req.imgBackground = imgPath + imgHeaderContacts
+
+  contacts.render(req, res)
+})
+
+router.post('/contacts', function (req, res, next) {
+  req.title = projectTitle
+  req.subTitle = subTitleContacts
+  req.developer = developer
+  req.developerPage = developerPage
+  req.companyName = companyName
+  req.imgBackground = imgPath + imgHeaderContacts
+
+  /**
+   * Fields validations.
+   */
+  if (!req.body.name) {
+    contacts.render(req, res, 'Digite o nome!')
+  } else if (!req.body.phoneNumber) {
+    contacts.render(req, res, 'Digite o telefone!')
+  } else if (!req.body.email) {
+    contacts.render(req, res, 'Digite o e-mail!')
+  } else if (!req.body.message) {
+    contacts.render(req, res, 'Digite a mensagem!')
+  } else {
+    contacts
+      .save(req.body)
+      .then(results => {
+        req.body = {}
+        contacts.render(req, res, null, 'Contato enviado com sucesso!')
+      })
+      .catch(err => {
+        contacts.render(req, res, err)
+      })
+  }
 })
 
 /**
@@ -49,8 +97,11 @@ router.get('/contacts', function (req, res, next) {
 router.get('/menus', function (req, res, next) {
   menus.getMenus().then(results => {
     res.render('menus', {
-      title: titleProject,
-      subTitle: 'Sub-título',
+      title: projectTitle,
+      subTitle: subTitleMenus,
+      developer: developer,
+      developerPage: developerPage,
+      companyName: companyName,
       imgBackground: imgPath + imgHeaderMenus,
       menus: results
     })
@@ -61,16 +112,22 @@ router.get('/menus', function (req, res, next) {
  *  --- Reservations -----------------------------------------------------------
  */
 router.get('/reservations', function (req, res, next) {
-  req.title = titleProject
-  req.subTitle = 'Sub-título'
+  req.title = projectTitle
+  req.developer = developer
+  req.developerPage = developerPage
+  req.subTitle = subTitleReservations
+  req.companyName = companyName
   req.imgBackground = imgPath + imgHeaderReservations
 
   reservations.render(req, res)
 })
 
 router.post('/reservations', function (req, res, next) {
-  req.title = titleProject
-  req.subTitle = 'Sub-título'
+  req.title = projectTitle
+  req.developer = developer
+  req.developerPage = developerPage
+  req.companyName = companyName
+  req.subTitle = subTitleReservations
   req.imgBackground = imgPath + imgHeaderReservations
 
   /**
@@ -104,8 +161,11 @@ router.post('/reservations', function (req, res, next) {
  */
 router.get('/services', function (req, res, next) {
   res.render('services', {
-    title: titleProject,
-    subTitle: 'Sub-título',
+    title: projectTitle,
+    developer: developer,
+    developerPage: developerPage,
+    subTitle: subTitleServices,
+    companyName: companyName,
     imgBackground: imgPath + imgHeaderServices
   })
 })

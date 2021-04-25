@@ -3,15 +3,8 @@
     <div class="row">
       <div class="col-md-12">
         <div class="col-md-6 animate-box">
-          <!-- Mensagem de erro -->
-          <% if (typeof error === "string") { %>
-          <div class="alert alert-danger"><%= error %></div>
-          <% } %>
-
-          <!-- Aviso de sucesso-->
-          <% if (typeof success === "string") { %>
-          <div class="alert alert-success"><%= success %></div>
-          <% } %>
+          <!-- Mensagem de status -->
+          <%- include('./../common/alerts') -%>
 
           <h3>Reserva de mesa</h3>
 
@@ -86,6 +79,8 @@
               <div class="col-md-12">
                 <input
                   type="submit"
+                  name="btSend" 
+                  id="btSend"
                   class="btn btn-primary btn-block"
                   value="Reservar Agora"
                 />
@@ -103,7 +98,7 @@
                 Itoupava Norte, Blumenau - SC
               </li>
               <li class="phone">
-                <a href="tel://1234567890">+(47) 99168-9994</a>
+                <a href="tel://47991689994">+(47) 99168-9994</a>
               </li>
               <li class="email">
                 <a href="mailto:contato@amxsistemas.com.br"
