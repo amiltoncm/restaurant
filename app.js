@@ -3,8 +3,14 @@ var express = require('express')
 var path = require('path')
 var cookieParser = require('cookie-parser')
 var logger = require('morgan')
-const redis = require('redis')
-const session = require('express-session')
+
+/**
+ * Sessão com redis.
+ */
+var redis = require('redis')
+var session = require('express-session')
+var RedisStore = require('connect-redis')(session)
+var redisClient = redis.createClient()
 
 var indexRouter = require('./routes/index')
 var adminRouter = require('./routes/admin')
@@ -15,14 +21,20 @@ var app = express()
 app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'ejs')
 
-let RedisStore = require('connect-redis')(session)
-let redisClient = redis.createClient()
-
+/**
+ * Middleware com redis.
+ */
 app.use(
   session({
-    store: new RedisStore({ client: redisClient }),
-    secret: 'keyboard cat',
-    resave: false
+    store: new RedisStore({
+      client: redisClient,
+      host: 'localhost',
+      port: 6379
+    }),
+    //criptografia a sessão
+    secret: 'p@ssw0rd',
+    resave: true,
+    saveUninitialized: true
   })
 )
 

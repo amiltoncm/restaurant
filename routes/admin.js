@@ -12,12 +12,10 @@ router.get('/', function (req, res, next) {
  * Admin - Login ---------------------------------------------------------------
  */
 router.get('/login', function (req, res, next) {
-  if (!req.session.views) req.session.views = 0
-
-  console.log('SESSION: ', req.session.views++)
-
   res.render('amxadmin/login')
 })
+
+router.post('/login', function (req, res, next) {})
 
 /**
  * Admin - Menus ---------------------------------------------------------------
