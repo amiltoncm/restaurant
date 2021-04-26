@@ -1,5 +1,6 @@
 var express = require('express')
 var router = express.Router()
+var users = require('./../inc/users')
 
 /**
  * Admin - Index ---------------------------------------------------------------
@@ -11,11 +12,27 @@ router.get('/', function (req, res, next) {
 /**
  * Admin - Login ---------------------------------------------------------------
  */
-router.get('/login', function (req, res, next) {
-  res.render('amxadmin/login')
+router.post('/login', function (req, res, next) {
+  if (!req.body.email) {
+    users.render(req, res, 'O campo e-mail é obrigatório!')
+  } else if (!req.body.password) {
+    users.render(req, res, 'O campo senha é obrigatório!')
+  } else {
+    users
+      .login(req.body.email, req.body.password)
+      .then(user => {
+        req.session.user = user
+        res.redirect('/amxadmin')
+      })
+      .catch(err => {
+        users.render(req, res, err.message)
+      })
+  }
 })
 
-router.post('/login', function (req, res, next) {})
+router.get('/login', function (req, res, next) {
+  users.render(req, res, null)
+})
 
 /**
  * Admin - Menus ---------------------------------------------------------------
